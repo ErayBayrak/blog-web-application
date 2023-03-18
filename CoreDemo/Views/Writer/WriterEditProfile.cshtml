@@ -1,0 +1,59 @@
+﻿@model UserUpdateViewModel
+@{
+    ViewData["Title"] = "WriterEditProfile";
+    Layout = "~/Views/Shared/WriterLayout.cshtml";
+}
+
+<div class="col-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Yazar Profil Güncelleme</h4>
+            <form method="post" class="forms-sample">
+
+                <div class="form-group">
+                    <label for="exampleInputName1">Ad Soyad</label>
+                    <input type="text" class="form-control" id="exampleInputName1" asp-for="@Model.namesurname" placeholder="Name">
+
+                </div>
+
+                <div class="form-group">
+                    <label for="exampleInputEmail3">Email</label>
+                    <input type="email" class="form-control" id="exampleInputEmail3" asp-for="@Model.email" placeholder="Email">
+                </div>
+
+                <div class="form-group">
+                    <label for="exampleInputEmail3">Şifre</label>
+                    <input type="text" class="form-control" id="exampleInputEmail3" asp-for="@Model.password" placeholder="Şifre">
+                </div>
+
+                <div class="form-group">
+                    <label for="exampleInputUserName">Kullanıcı Adı</label>
+                    <input type="text" class="form-control" id="exampleInputUsername" asp-for="@Model.username" placeholder="Kullanıcı Adı">
+                </div>
+
+
+                <div class="form-group">
+                    <label for="exampleInputPassword4">Resim Yolu</label>
+                    <input type="text" class="form-control" id="exampleInputPassword4" asp-for="@Model.imageurl" placeholder="Password">
+                </div>
+
+                @*<div class="form-group">
+            <label>Resim Yükleyin</label>
+            <input type="file" name="img[]" class="file-upload-default">
+            <div class="input-group col-xs-12">
+                <input type="text" class="form-control file-upload-info" disabled placeholder="Upload Image">
+                <span class="input-group-append">
+                    <button class="file-upload-browse btn btn-gradient-primary" type="button">Upload</button>
+                </span>
+            </div>
+        </div>*@
+
+
+
+                <input type="submit" value="Güncelle" class="btn btn-gradient-primary mr-2">
+                <a href="/Dashboard/Index/" class="btn btn-light">İptal</a>
+            </form>
+
+        </div>
+    </div>
+</div>

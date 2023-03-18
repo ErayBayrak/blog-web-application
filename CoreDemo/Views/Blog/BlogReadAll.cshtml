@@ -1,0 +1,110 @@
+﻿@model IEnumerable<EntityLayer.Concrete.Blog>
+@{
+    ViewData["Title"] = "BlogDetails";
+    Layout = "~/Views/Shared/UserView.cshtml";
+}
+<html>
+<body>
+   
+
+    <!--//banner-->
+    <section class="banner-bottom">
+        <!--/blog-->
+        <div class="container">
+            <div class="row">
+                <!--left-->
+                <div class="col-lg-8 left-blog-info-w3layouts-agileits text-left">
+                    @foreach (var x in Model)
+                    {
+                        <div class="blog-grid-top">
+                            <div class="b-grid-top">
+                                <div class="blog_info_left_grid">
+                                    <a href="single.html">
+                                        <img src="~/CoreBlogTema/web/images/b1.jpg" class="img-fluid" alt="">
+                                    </a>
+                                </div>
+                                <div class="blog-info-middle">
+                                    <ul>
+                                        <li>
+                                            <a href="#">
+                                                <i class="far fa-calendar-alt"></i> @(((DateTime)x.BlogCreateDate).ToString("dd-MMM-yyyy"))
+                                            </a>
+                                        </li>
+                                        <li class="mx-2">
+                                            <a href="#">
+                                                <i class="far fa-thumbs-up"></i> 0 Beğeni
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                <i class="far fa-comment"></i> 0 Yorum
+                                            </a>
+                                        </li>
+
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <h3>
+                                <a href="single.html">@x.BlogTitle</a>
+                            </h3>
+                            <p>
+                                @x.BlogContent
+                            </p>
+                            <a href="single.html" class="btn btn-primary read-m">Devamını Oku</a>
+                        </div>
+                    }
+                    
+                    @await Component.InvokeAsync("CommentListByBlog", ViewBag.blog_id_value) 
+                    @*@await Html.PartialAsync("~/Views/Comment/CommentListOnBlog.cshtml")*@
+                    @await Html.PartialAsync("~/Views/Comment/PartialAddComment.cshtml")
+                </div>
+
+                <!--//left-->
+                <!--right-->
+                <aside class="col-lg-4 agileits-w3ls-right-blog-con text-right">
+                    <div class="right-blog-info text-left">
+                        <div class="tech-btm">
+                            <img src="/CoreBlogTema/web/images/banner1.jpg" class="img-fluid" alt="">
+                        </div>
+                        <h4>Mail Bültenine Abone Olun</h4>
+                        @await Html.PartialAsync("~/Views/NewsLetter/SubscribeMail.cshtml")
+                        @await Component.InvokeAsync("CategoryList")
+                        @await Component.InvokeAsync("WriterLastBlog")
+
+                        <div class="single-gd my-5 tech-btm">
+                            <h4>Our Progress</h4>
+                            <div class="progress">
+                                <div class="progress-bar progress-bar-striped" role="progressbar" style="width: 10%" aria-valuenow="10" aria-valuemin="0"
+                                     aria-valuemax="100"></div>
+                            </div>
+                            <div class="progress">
+                                <div class="progress-bar progress-bar-striped bg-success" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0"
+                                     aria-valuemax="100"></div>
+                            </div>
+                            <div class="progress">
+                                <div class="progress-bar progress-bar-striped bg-info" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0"
+                                     aria-valuemax="100"></div>
+                            </div>
+                            <div class="progress">
+                                <div class="progress-bar progress-bar-striped bg-warning" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0"
+                                     aria-valuemax="100"></div>
+                            </div>
+                            <div class="progress">
+                                <div class="progress-bar progress-bar-striped bg-danger" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0"
+                                     aria-valuemax="100"></div>
+                            </div>
+                        </div>
+                        @await Component.InvokeAsync("BlogLastPost")
+                    </div>
+
+                </aside>
+                <!--//right-->
+            </div>
+        </div>
+    </section>
+   
+</body>
+
+</html>
+

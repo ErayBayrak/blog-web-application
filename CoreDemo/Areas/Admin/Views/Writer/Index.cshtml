@@ -1,0 +1,118 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+}
+
+<h1>Yazar Ajax İşlemleri</h1>
+<br />
+<button class="btn btn-primary" id="btngetlist">Yazar Listesi</button>
+<button class="btn btn-success" id="btngetwriterbyid">Yazar Getir</button>
+<button class="btn btn-info" id="btnaddwriter">Yazar Ekle</button>
+<button class="btn btn-danger" id="btndeletewriter">Yazar Sil</button>
+<button class="btn btn-warning" id="btnupdatewriter">Yazar Güncelle</button>
+<br /><br />
+<div id="writerlist">
+    Yazarlar kısmı
+</div>
+<div id="writerget">
+    yazar
+</div>
+<div>
+    <input type="text" id="writerid" placeholder="Yazar ID değerini giriniz." class="form-control" />
+</div>
+<br />
+<div>
+    <input type="text" id="writermodelid" placeholder="Yazar ID değerini giriniz." class="form-control" />
+    <input type="text" id="writermodelname" placeholder="Yazar Adını giriniz." class="form-control" />
+</div>
+<br />
+<div>
+    <input type="text" id="removedid" placeholder="Silinecek yazar ID değerini giriniz." class="form-control" />
+</div>
+<br />
+<div>
+    <input type="text" id="updatedid" placeholder="Güncellenecek yazar ID değerini giriniz." class="form-control" />
+    <input type="text" id="updatedname" placeholder="Güncellenecek yazar adını giriniz." class="form-control" />
+</div>
+@section scripts{
+<script>
+    $("#btngetlist").click(function () {
+        $.ajax({
+            contentType: "application/json",
+            dataType: "json",
+            type: "Get",
+            url: "/Admin/Writer/WriterList/",
+            success: function (func) {
+                let w = jQuery.parseJSON(func);
+                console.log(w);
+                let tablehtml = "<table class='table table-bordered'><tr><th>Yazar ID</th><th>Yazar Adı" +
+                    "</th></tr>";
+                $.each(w, (index, value) => {
+                    tablehtml += `<tr><td>${value.WriterModelID}</td><td>${value.WriterModelName}</td></tr>`
+                });
+                tablehtml += "</table>";
+                $("#writerlist").html(tablehtml);
+            }
+        });
+    });
+    $("#btngetwriterbyid").click(x => {
+        let id = $("#writerid").val();
+        $.ajax({
+            contentType: "application/json",
+            dataType: "json",
+            type: "get",
+            url: "/Admin/Writer/GetWriterById/",
+            data: { writerid: id },
+            success: function (func) {
+                let jsonw = jQuery.parseJSON(func);
+                console.log(jsonw);
+
+                let getvalue = `<table class="table table-bordered"><tr><th>ID</th><th>Ad</th></tr><tr><td>${jsonw.WriterModelID}</td><td>${jsonw.WriterModelName}</td></tr></table>`
+                $("#writerget").html(getvalue);
+            }
+        });
+        
+    });
+    $("#btnaddwriter").click(function () {
+        let writer = {
+            WriterModelID: $("#writermodelid").val(),
+            WriterModelName: $("#writermodelname").val()
+        };
+        $.ajax({
+            type: "post",
+            url: "/Admin/Writer/AddWriter/",
+            data:writer,
+            success: function (func) {
+                let result = jQuery.parseJSON(func);
+                alert("Ekleme işlemi gerçekleşti.");
+            }
+        });
+    });
+    $("#btndeletewriter").click(x => {
+        let remid = $("#removedid").val();
+        $.ajax({
+            url: "/Admin/Writer/DeleteWriter/" + remid,
+            type: "post",
+            dataType: "json",
+            success: function (func) {
+                alert("Silme işlemi başarılı");
+            }
+        });
+    });
+    $("#btnupdatewriter").click(function () {
+        let writer = {
+            WriterModelID: $("#updatedid").val(),
+            WriterModelName: $("#updatedname").val()
+        };
+        $.ajax({
+            type: "post",
+            url: "/Admin/Writer/UpdateWriter/",
+            data: writer,
+            success: function (func) {
+                alert("İşlem başarılı.");
+            }
+        });
+    });
+</script>
+ }

@@ -1,0 +1,19 @@
+﻿@model EntityLayer.Concrete.Blog
+
+<div class="single-gd tech-btm">
+    <h4>Son Eklenen Post</h4>
+    <div class="blog-grids">
+        <div class="blog-grid-left">
+            <a href="/Blog/BlogReadAll/@Model.BlogID">
+                <img src="/CoreBlogTema/web/images/b1.jpg" class="img-fluid" alt="">
+            </a>
+        </div>
+        <div class="blog-grid-right">
+
+            <h5>
+                <a href="single.html">@(Model.BlogContent.Length > 150 ? Model.BlogContent.Substring(0, Model.BlogContent.Substring(0,155).LastIndexOf(" "))+"..." : Model.BlogContent +"...")</a>
+            </h5>
+        </div>
+        <div class="clearfix"> </div>
+    </div>
+</div>
